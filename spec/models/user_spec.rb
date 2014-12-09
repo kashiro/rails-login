@@ -3,13 +3,17 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
 	before do
 		@user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
-	end
+  end
+
 	subject { @user }
+
 	it { should respond_to(:name)  }
 	it { should respond_to(:email) }
 	it { should respond_to(:password_digest) }
 	it { should respond_to(:password) }
 	it { should respond_to(:password_confirmation) }
+	it { should respond_to(:remember_token) }
+	it { should respond_to(:authenticate) }
 	it { should be_valid }
 
 	# ------------------------------
@@ -97,4 +101,14 @@ RSpec.describe User, :type => :model do
 	 	before { @user.password = @user.password_confirmation = "a" * 5 }
 	 	it { should be_invalid }
 	end
+	# ------------------------------
+	# remember_token
+	# ------------------------------
+  describe 'remember_token' do
+    before do
+      @user.save
+    end
+    subject { @user.remember_token }
+    it { should_not be_blank }
+  end
 end

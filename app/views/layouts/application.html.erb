@@ -8,6 +8,17 @@
 </head>
 <body>
 
+  <ul>
+    <li><%= link_to 'Home', root_path %></li>
+    <% if signed_in? %>
+      <li><%= link_to 'Sign out', signout_path, method: 'delete' %></li>
+      <li><%= link_to 'Profile', current_user %></li>
+    <% else %>
+      <li><%= link_to 'Sign up', signup_path %></li>
+      <li><%= link_to 'Sign in', signin_path %></li>
+    <% end %>
+  </ul>
+
 <%= yield %>
 
 </body>
